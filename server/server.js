@@ -1,18 +1,18 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-
-// const apiRouter = require('./routes/dummyRoute');
+const wardrobeRouter = require('./routes/wardrobeRoute');
+const outfitsRouter = require('./routes/outfitsRoute');
 
 const PORT = 3000;
 
 /**
  * handle parsing request body
  */
- app.use(express.json());
- app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
- /**
+/**
  * handle requests for static files
  */
 app.use(express.static(path.resolve(__dirname, '../client')));
@@ -21,19 +21,13 @@ app.use(express.static(path.resolve(__dirname, '../client')));
  * define route handlers
  */
 
-app.use('/', (req, res) => {
-  // DId you mean something like this ALex? 
-  res.status(200).json('Shit is working');  
-})
+app.use('/wardrobe', wardrobeRouter);
+app.use('/outfits', outfitsRouter);
 
-// app.use('/api', apiRouter);
-
-
-
-//catch-all error handler 
+//catch-all error handler for unknown routes
 app.use((req, res) => res.sendStatus(404));
 
-//global error handler 
+//global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
@@ -47,9 +41,8 @@ app.use((err, req, res, next) => {
 /**
  * start server
  */
- app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
-
 
 module.exports = app;
