@@ -11,6 +11,7 @@
 	"author": "",
 	"dependencies": {
 		"@material-ui/core": "^4.11.3",
+		"bcryptjs": "^2.3.0",
 		"cookie-session": "^1.4.0",
 		"express": "^4.12.3",
 		"pg": "^8.5.1",
