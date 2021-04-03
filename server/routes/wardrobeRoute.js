@@ -9,7 +9,9 @@ router.get('/tops', (req, res) => res.status(200).json({}));
 
 router.get('/bottoms', (req, res) => res.status(200).json({}));
 
-router.get('/shoes', (req, res) => res.status(200).json({}));
+router.get('/shoes', wardrobeController.getShoes, (req, res) => {
+  res.status(200).json(res.locals.shoes);
+});
 
 router.get('/accessories', (req, res) => res.status(200).json({}));
 
