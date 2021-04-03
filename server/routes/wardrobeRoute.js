@@ -77,3 +77,5 @@ router.delete('/deleteWardrobeItem', (req, res) =>
 //   zipcode INT,
 //   user_hash_id INT
 // );
+
+module.exports = router;
