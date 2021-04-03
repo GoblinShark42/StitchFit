@@ -2,8 +2,17 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-// const apiRouter = require('./routes/dummyRoute');
+// cookie-session for creating sessions stored in cookies
+const cookieSession = require('cookie-session');
+// key for cookie stored here. backend team should try placing other necessary keys in this file if possible
+const keys = require('../keys/keys');
 
+// for bcrypt testing purposes
+const SALT_WORK_FACTOR = 5;
+const bcrypt = require('bcryptjs');
+const BCRYPT_TEST_ID = 'Senor Goobly';
+
+// const apiRouter = require('./routes/dummyRoute');
 const PORT = 3000;
 
 /**
@@ -12,28 +21,91 @@ const PORT = 3000;
  app.use(express.json());
  app.use(express.urlencoded({ extended: true }));
 
+//app.use(cookieParser());
+
  /**
  * handle requests for static files
  */
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 /**
- * define route handlers
+ * This will create a cookie for a client when they get onto our server 
  */
+app.use(cookieSession({
+  name: 'goobly-cookie',
+  maxAge: 1 * 60 * 60 * 1000, // maxAge is in milliseconds, so 1 * 60 min * 60 sec * 1000 = 1 hr maxAge
+  keys: [keys.COOKIE_KEY],
+}));
 
+/** 
+ * This creates a session upon logging in by setting req.session.user's value. 
+ * The value should be the hashed value of the user id and to do this, we bcrypt it. The backend team should
+ * try incorporating bcrypt in the model file and have the hashed user id column contain the value
+ * returned by bcrypt.hash(); 
+ */
+ app.get('/login', async (req,res) => { // not the async before (req, res) since bcrpyt is async. this also allows us to use await before bcrypt to get the hash before proceeding.
+  // first get user id from the database, this will replace the BCRYPT_TEST_ID value
+
+  // hash the user id
+  let hashed = await bcrypt.hash(BCRYPT_TEST_ID, SALT_WORK_FACTOR);
+
+  console.log("LOGGED IN. HASHED USER ID HERE: " , hashed);
+  // then set the cookie value to the hashed value
+  req.session.user = hashed;
+  res.status(200).json('Cookie made');  
+});
+
+/** This manually deletes the session and therefore the cookie 
+ * 
+*/
+app.get('/logout', (req,res) => {
+  // deletes the session for the user and therefore the cookie by setting req.session to null
+  req.session = null;
+  res.status(200).json('Cookie deleted');  
+});
+
+/** 
+ * This should obtain the hashed value of the cookie which will match the hashed value in the User table for the hashed user id column 
+ * */
+app.get('/getcookie', (req, res) => {
+  // grab the cookie value from the client. it arrives in an object with key value pair { user : hashed_value}
+  res.status(200).send(req.session);  
+});
+
+/**
+ * Compare the cookies value (this should be the hashed user id) with the actual user id
+ */
+app.get('/comparecookie', async (req, res) => {
+  // obtains the hashed user id from the client's cookie. It will be stored in req.session.user 
+  let hashedId = req.session.user
+
+  // obtain a boolean for whether the user id and hashed user id match
+  const valid = await bcrypt.compare(BCRYPT_TEST_ID, hashedId); 
+
+  // match not found, the user is not validated
+  if(!valid) {
+    res.send('not valid');
+  }
+
+  // match found, the user is validated
+  res.send('valid');
+})
+
+/**
+ * route's defined here
+ */
 app.use('/', (req, res) => {
-  // DId you mean something like this ALex? 
   res.status(200).json('Shit is working');  
 })
 
-// app.use('/api', apiRouter);
-
-
-
-//catch-all error handler 
+/**
+ * catch-all error handler
+ */
 app.use((req, res) => res.sendStatus(404));
 
-//global error handler 
+/**
+ * global error handler
+ */
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
@@ -50,6 +122,5 @@ app.use((err, req, res, next) => {
  app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
-
 
 module.exports = app;
