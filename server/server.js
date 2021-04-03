@@ -11,19 +11,19 @@ const keys = require('../keys/keys');
 const SALT_WORK_FACTOR = 5;
 const bcrypt = require('bcryptjs');
 const BCRYPT_TEST_ID = 'Senor Goobly';
+const wardrobeRouter = require('./routes/wardrobeRoute');
+const outfitsRouter = require('./routes/outfitsRoute');
 
-// const apiRouter = require('./routes/dummyRoute');
+
 const PORT = 3000;
 
 /**
  * handle parsing request body
  */
- app.use(express.json());
- app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-//app.use(cookieParser());
-
- /**
+/**
  * handle requests for static files
  */
 app.use(express.static(path.resolve(__dirname, '../client')));
@@ -92,20 +92,15 @@ app.get('/comparecookie', async (req, res) => {
 })
 
 /**
- * route's defined here
+ * handle routes
  */
-app.use('/', (req, res) => {
-  res.status(200).json('Shit is working');  
-})
+app.use('/wardrobe', wardrobeRouter);
+app.use('/outfits', outfitsRouter);
 
-/**
- * catch-all error handler
- */
-app.use((req, res) => res.sendStatus(404));
+//catch-all error handler for unknown routes
+app.use('*',(req, res) => res.status(404).send('not working'));
 
-/**
- * global error handler
- */
+//global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
@@ -119,7 +114,7 @@ app.use((err, req, res, next) => {
 /**
  * start server
  */
- app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
 
