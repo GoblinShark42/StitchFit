@@ -10,6 +10,7 @@
 	},
 	"author": "",
 	"dependencies": {
+		"@material-ui/core": "^4.11.3",
 		"cookie-session": "^1.4.0",
 		"express": "^4.12.3",
 		"pg": "^8.5.1",
