@@ -1,29 +1,71 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const wardrobeController = require('../controllers/wardrobeController');
+const wardrobeController = require("../controllers/wardrobeController");
 
-// GET routes for many items
-router.get('/entireWardrobe', (req, res) => res.status(200).json({}));
+// GET ROUTES
+// Get entire wardrobe
+// router.get("/entireWardrobe", wardrobeController.getWardrobe, (req, res) =>
+// 	res.status(200).json(res.locals.wardrobe)
+// );
 
-router.get('/tops', (req, res) => res.status(200).json({}));
+// Get all tops
+router.get("/tops", wardrobeController.getTops, (req, res) =>
+	res.status(200).json(res.locals.tops)
+);
 
-router.get('/bottoms', (req, res) => res.status(200).json({}));
+// Get all bottoms
+router.get("/bottoms", wardrobeController.getBottoms, (req, res) =>
+	res.status(200).json(res.locals.bottoms)
+);
 
-router.get('/shoes', (req, res) => res.status(200).json({}));
+// Get all shoes
+router.get("/shoes", wardrobeController.getShoes, (req, res) =>
+	res.status(200).json(res.locals.shoes)
+);
 
-router.get('/accessories', (req, res) => res.status(200).json({}));
+// Get all accessories
+router.get("/accessories", wardrobeController.getAccessories, (req, res) =>
+	res.status(200).json(res.locals.accessories)
+);
 
-// GET one wardrobe item
-router.get('/oneWardrobeItem', (req, res) => res.status(200).json({}));
+// POST ROUTES
+// Add one top
+router.post("/addTop", wardrobeController.addTop, (req, res) =>
+	res.status(200).json({ success: true })
+);
 
-// POST route
-router.post('/addWardrobeItem', (req, res) =>
-  res.status(200).json({ success: true })
+// Add one bottom
+router.post("/addBottom", wardrobeController.addBottom, (req, res) =>
+	res.status(200).json({ success: true })
+);
+
+// Add one pair of shoes
+router.post("/addShoes", wardrobeController.addShoes, (req, res) =>
+	res.status(200).json({ success: true })
+);
+
+// Add one accessory
+router.post("/addAccessory", wardrobeController.addAccessory, (req, res) =>
+	res.status(200).json({ success: true })
 );
 
 // DELETE route
-router.delete('/deleteWardrobeItem', (req, res) =>
-  res.status(200).json({ success: true })
+router.delete("/tops/:id", wardrobeController.deleteTop, (req, res) =>
+	res.status(200).json({ success: true })
+);
+
+router.delete("/bottoms/:id", wardrobeController.deleteBottom, (req, res) =>
+	res.status(200).json({ success: true })
+);
+
+router.delete("/shoes/:id", wardrobeController.deleteShoes, (req, res) =>
+	res.status(200).json({ success: true })
+);
+
+router.delete(
+	"/accessories/:id",
+	wardrobeController.deleteAccesory,
+	(req, res) => res.status(200).json({ success: true })
 );
 
 // psql postgres://zdkkkscr:g4D1FGXn45XwqAn6lW__kVGIAjt5XNfD@queenie.db.elephantsql.com:5432/zdkkkscr
