@@ -1,11 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const outfitsController = require('../controllers/outfitsController');
+const outfitsController = require("../controllers/outfitsController");
 
-router.get('/allOutfits', (req, res) => res.status(200).json({}));
+router.get("/outfits", outfitsController.getOutfits, (req, res) =>
+	res.status(200).json(res.locals.outfits)
+);
 
-router.post('/newOutfit', (req, res) => res.status(200).json({ sucess: true }));
+router.post("/newOutfit", outfitsController.addOutfit, (req, res) =>
+	res.status(200).json({ success: true })
+);
 
-router.delete('/outfit', (req, res) => res.status(200).json({ sucess: true }));
+router.delete("/deleteOutfit:id", outfitsController.deleteOutfit, (req, res) =>
+	res.status(200).json({ success: true })
+);
 
 module.exports = router;
