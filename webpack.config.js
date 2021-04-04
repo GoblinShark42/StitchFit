@@ -1,11 +1,4 @@
-// need to install loaders like scss
-
-// build
-
-// public path here somewhere?
-
-// web dev server configs
-
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -21,12 +14,16 @@ module.exports = {
     compress: true,
     port: 8080,
     proxy: {
+      '/': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
@@ -42,4 +39,8 @@ module.exports = {
       template: 'client/index.html',
     }),
   ],
+  resolve: {
+    // Enable importing JS / JSX files without specifying their extension
+    extensions: ['.js', '.jsx'],
+  },
 };
