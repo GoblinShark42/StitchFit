@@ -99,6 +99,9 @@ app.get("/comparecookie", async (req, res) => {
 app.use("/wardrobe", wardrobeRouter);
 app.use("/outfits", outfitsRouter);
 
+app.use("/", (req, res) => res.status(200).send("hello"));
+
+
 //catch-all error handler for unknown routes
 app.use("*", (req, res) => res.status(404).send("not working"));
 

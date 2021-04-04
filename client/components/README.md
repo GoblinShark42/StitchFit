@@ -2,11 +2,11 @@
 // Component Structure
 //**********************/
 App
-  |-- Main Container (Menu --- state; instantiate 4 different Category boxes, each have a Modal)
+  |-- Main Container (--- state; instantiate 4 different Category boxes, each have a Modal)
         |
         |
         |    
-        |-- Category (boxes show up on screen)
+        |-- Category Display (boxes show up on screen)
         |   |
         |   |---Modal
         |         |----AddItem (button, send POST request, also would change state)
@@ -26,7 +26,7 @@ App
 1. App.jsx => render Main Container
     ---------------------------------------------------------------------------------
     Input: User id, user name
-    Renders: Main conteiner and menu buttons
+    Renders: Main container and menu buttons
     Child Component: MainContainer.jsx
                      <MainContainer userId = 'asefjowef83r8' userName = 'Goobly Shark'>
                      * actual props should be variable names

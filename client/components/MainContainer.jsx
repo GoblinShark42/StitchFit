@@ -1,38 +1,45 @@
+// 2. MainContainer.jsx (displays category boxes)
+//     ---------------------------------------------------------------------------------
+//     Input: User id
+//     Renders: Menu buttons 
+//     Child Conponent: CategoryDisplay.jsx <Menu category = 'tops' userId = 'asefjowef83r8'> 
+//                      * actual props should be variable names
+//     ---------------------------------------------------------------------------------
+
+
 import React, {useState, useEffect} from 'react'
+//import CategoryDisplay from './CategoryDisplay'
+
 export const GlobalContext = React.createContext({}); // To pass state to children
 function MainContainer({children}){  
+const [resourceType, setResourceType] = useState(''); // State update
 
-  const [resourceType, setResouceType] = useState(0); // State update
 
-  useEffect (() => {
-    fetch(`wardrobe/${resourceType}/`)	
-    .then (res => res.json())
-    .then(json => console.log(json))
-  }, [resourceType]);
 
-  const addItem = () => {
-    fetch('/wardrobe/addTop', {
-      method: 'POST',
-      headers:  {'Content-Type': 'application/json'},
-      body: JSON.stringify({url: "url_string"})
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // this.setState({urls : data});
-        // console.log(this.state.urls);
-      })
-      .catch(error => console.log(error));
-  }
+  // if(resourceType === 'accessory') {
+  //   menuType =  `WE ARE NOW LOOKING AT ACCESSORIES`;
+  // } 
+  // if(resourceType === 'tops') {
+  //   menuType = `WE ARE NOW LOOKING AT TOPS ? YES, ${resourceType}`;
+  // }
+  // if(resourceType === 'bottoms') {
+  //   menuType =  `WE ARE NOW LOOKING AT BOTTOMS ? YES, ${resourceType}`;
+  // } 
+  // if(resourceType === 'shoes') {
+  //   menuType = `WE ARE NOW LOOKING AT SHOES ? YES, ${resourceType}`;
+  // }  
+
 
   return(
     <div>
-    <button onClick={() => setResouceType('tops')}>Tops</button>
-    <button onClick={() => setResouceType('accessory')}>Accessory</button>
-    <h1>{resourceType}</h1>
-    <button onClick = {addItem}> Add </button>
-  </div>
-
+      <button onClick={() => setResourceType('accessory')}>Accessory</button>
+      <button onClick={() => setResourceType('tops')}>Tops</button>
+      <button onClick={() => setResourceType('bottoms')}>Bottoms</button>
+      <button onClick={() => setResourceType('shoes')}>Shoes</button>
+      <h1>{resourceType}</h1>
+      <h2>Now you can choose {resourceType}</h2>
+      {/* <CategoryDisplay category = {resourceType} userId = 'asefjowef83r8' />   */}
+    </div>
   )
 }
 
