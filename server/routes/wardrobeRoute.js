@@ -1,20 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const wardrobeController = require('../controllers/wardrobeController');
+const wardrobeController = require("../controllers/wardrobeController");
 
 // GET items
-router.get('/getItems', wardrobeController.getItems, (req, res) =>
-  res.status(200).json(res.locals.allItmes)
+router.get("/getItems", wardrobeController.getItems, (req, res) =>
+	res.status(200).json(res.locals.allItmes)
 );
 
 // POST item
-router.post('/addItem', wardrobeController.addItem, (req, res) =>
-  res.status(200).json({ success: true })
+router.post("/addItem", wardrobeController.addItem, (req, res) =>
+	res.status(200).json({ success: true })
 );
 
 // DELETE item
-router.delete('/deleteItem:id', wardrobeController.deleteItem, (req, res) =>
-  res.status(200).json({ success: true })
+router.delete("/deleteItem:id", wardrobeController.deleteItem, (req, res) =>
+	res.status(200).json({ success: true })
 );
 
 // psql postgres://zdkkkscr:g4D1FGXn45XwqAn6lW__kVGIAjt5XNfD@queenie.db.elephantsql.com:5432/zdkkkscr
@@ -44,4 +44,19 @@ router.delete('/deleteItem:id', wardrobeController.deleteItem, (req, res) =>
 //   user_hash_id INT
 // );
 
+// ALTER TABLE users
+// ADD wardrobe_id INT;
+
 module.exports = router;
+
+// UPDATE table_name
+// SET column1 = value1, column2 = value2, ...
+// WHERE condition;
+
+// SELECT users.id, clothing_item.id
+// FROM clothing_item
+// INNER JOIN users ON users.id = clothing_item.user_id
+
+// SELECT u.id, c.id
+// FROM users u
+// INNER JOIN clothing_item c ON u.id = c.user_id
