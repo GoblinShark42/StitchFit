@@ -14,10 +14,10 @@ module.exports = {
     compress: true,
     port: 8080,
     proxy: {
-      '/': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
+      '/':'http://localhost:3000/',
+      '/wardrobe':'http://localhost:3000/',
+      '/wardrobe/getItems':'http://localhost:3000/',
+      '/outfits':'http://localhost:3000/',
     },
   },
   module: {

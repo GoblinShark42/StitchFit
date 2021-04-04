@@ -12,6 +12,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import MainContainer from "./components/MainContainer";
 
+
 class App extends Component {
   constructor(props) {
     super();
@@ -22,9 +23,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/')
-    .then(res => res.json())
-    .catch(err => console.log('ERROR ', err));
+    // fetch('/')
+    // .then(res => res.json())
+    // .catch(err => console.log('ERROR ', err));
   }
 
  //<MainContainer userId="asefjowef83r8" userName="Goobly Shark" />
