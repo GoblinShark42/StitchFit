@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-function Munu(){
+function Menu(){
 
   const [resouceType, setResouceType] = useState('login');
 
