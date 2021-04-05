@@ -4,9 +4,7 @@
 // - .then Displays Modal invoking Modal.jsx passing the result of the GET request
 
 import React, {useState, useEffect} from 'react'
-import { render } from 'react-dom';
-//import Modal from 'react-modal';
-import ReactDOM from 'react-dom';
+import AddItem from './AddItem'
 import MultipleItemsDisplay from './MultipleItemsDisplay'
 
 //Modal.setAppElement('#root')
@@ -14,41 +12,31 @@ import MultipleItemsDisplay from './MultipleItemsDisplay'
 
 export const GlobalContext = React.createContext({}); // To pass state to children
 function OurModal(props){
-  const [myAccessories, setAccessories] = useState(''); 
-  const [myUrls, setUrls] = useState(''); 
+  const [myItems, setItems] = useState(''); 
+  const [pictureUrls, setUrls] = useState(''); 
 
-  const getItem = () => {
-    fetch('/wardrobe/getItems/shoes')
+ /* useEffect(() => {
+    console.log("HERE");
+    fetch(`/wardrobe/getItems/${props.category}`)
       .then(response => response.json())
       .then(data => {
-        setAccessories((data));
-        //console.log(data);
-        // this.setState({urls : data});
-        // console.log(this.state.urls);
+        setItems((data));
+        setUrls({urls : data});
+      })
+      .then(() => {
+        let temp = []
+        for(let i = 0; i < myItems.length; i++) {
+          temp.push(myItems[i].url);
+        }
+        setUrls(temp);
       })
       .catch(error => console.log(error));
-  }
-  /*<div>{myAccessories.map((accessory) =>{
-    <div>{accessory.url}</div>
-  })}</div>*/
-
-  const parseUrls = () => {
-    let temp = []
-    for(let i = 0; i < myAccessories.length; i++) {
-      temp.push(myAccessories[i].url);
-    }
-    console.log(temp);
-    setUrls(temp);
-    console.log(myUrls[0]);
-    return temp;
-  }
-  //{console.log(myAccessories.map((accessory) => accessory.url))}
+  }, []) */
   
   return(
     <div>
-      <button onClick={getItem} >GET ALL THE ITEMS!!!</button>
-      <button onClick={() => parseUrls(myAccessories)} >GET URLS!!!</button>
-      <MultipleItemsDisplay urls = {myUrls}></MultipleItemsDisplay>
+      <AddItem category = {props.category}></AddItem>
+      <MultipleItemsDisplay urls = {props.urls}></MultipleItemsDisplay>
     </div>
   )
 }
