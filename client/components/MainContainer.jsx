@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import OurModal from './OurModal';
+// import '../stylesheets/style.css'; 
 
 Modal.setAppElement('#root');
 export const GlobalContext = React.createContext({}); // To pass state to children
@@ -44,35 +45,64 @@ function MainContainer(props) {
 
   return (
     <div id='myElement'>
-      <button onClick={() => {
+      <button className = 'top-menu-button'
+        onClick={() => {
         setCategory('accessories'); 
         getUrls('accessories');
         setModal(currentState => (currentState === false) ? true : false);
       }}>Accessory</button>
-      <button onClick={() => {
+      <button  className = 'top-menu-button'
+        onClick={() => {
         setCategory('tops');
         getUrls('tops');
         setModal(currentState => (currentState === false) ? true : false);
       }}>Tops</button>
-      <button onClick={() => {
+      <button  className = 'top-menu-button'
+        onClick={() => {
         setCategory('bottoms');
         getUrls('bottoms');
         setModal(currentState => (currentState === false) ? true : false);
       }}>Bottoms</button>
-      <button onClick={() => {
+      <button
+        className = 'top-menu-button'         
+        onClick={() => {
         setCategory('shoes');
         getUrls('shoes');
         setModal(currentState => (currentState === false) ? true : false);
       }}>Shoes</button>
+          <Modal
+            style={{
+              overlay: {
+              position: 'fixed',
+              top: 200,
+              left: 0,
+              right: 500,
+              bottom: 0,
+              backgroundColor: 'rgba(35, 255, 255, 0.75)'
+            },
+            content: {
+              position: 'absolute',
+              top: '40px',
+              left: '40px',
+              right: '40px',
+              bottom: '40px',
+              border: '1px solid #ccc',
+              background: 'white',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '4px',
+              outline: 'none',
+              padding: '20px'
+            }
+            }}
+            isOpen={showModal}>
+            <button onClick={() => {
+              setModal(currentState => (currentState === false) ? true : false);
+            }}>Close</button>
+            <OurModal userId={props.userId} category={category} showModal={showModal} urls = {pictureUrls} />
+          </Modal>
+          </div>
 
-      <Modal
-        isOpen={showModal}>
-        <button onClick={() => {
-          setModal(currentState => (currentState === false) ? true : false);
-        }}>Close</button>
-        <OurModal userId={props.userId} category={category} showModal={showModal} urls = {pictureUrls} />
-      </Modal>
-    </div>
   )
 }
 
