@@ -17,7 +17,6 @@ App
         |
         |-- OutfitSubmitter (listening to the state)
 
-
 //******************************/
 // Components and Functionalities
 //******************************/
@@ -46,19 +45,6 @@ App
     - Listens to the click events
     - When a click event happens, this component creates a Modal with the userId and category 
 
-
-      3. CategoryDisplay.jsx
-          --------------------------------------------------------------------
-          Input: category name (to display each menu and icon), user id
-          Output/render: each category button
-          Child Component: Modal.jsx <Modal category = 'tops'> 
-                           * actual props should be variable names
-          --------------------------------------------------------------------
-          - Listens to the click events
-          - When a click event happens, invokes a fetch request to the database
-              DB：GET /wardrobe/accessories
-          - .then Displays Modal invoking Modal.jsx passing the result of the GET request
-
  4. Modal.jsx
     ---------------------------------------------------------------------------------
     Input: category name, user id, result of the GET request from the previous
@@ -73,8 +59,6 @@ App
     - Displays Title depending on the pssed in category
     - Displays AddItem box
     - Displays MultipeItemsDisplay box passing in the user id and the category name
-
-
 
         5. AddItem.jsx
         ----------------------------------------------------------------------
@@ -94,8 +78,6 @@ App
           - .then if success, displays the success message 
           - .then calls the MultipleItemsDisplay box passing in the returend URL , category name, item id, and user id
 
-
-
         6. MultipleItemsDisplay.jsx
         ----------------------------------------------------------------------
         Input: category name, user id
@@ -113,11 +95,10 @@ App
           - If items exist, displays the ItemDisplay boxes (with pictures and buttons)
           - If no items were found, do nothing
 
-
         7. ItemsDisplay.jsx
         ----------------------------------------------------------------------
         Input: Image URL, item id, user id, category name,
-        Render: Item image, '+' button, '-' button
+        Renders: Item image, '+' button, '-' button
         Child Compoents: OutfitSubmitter.jsx
                           <OutfitSubmitter 
                             imgUrl = 'http://abc.com/xxx.jpg'
@@ -135,8 +116,6 @@ App
                   - DELETE /wardrobe/delete:id
                   - deletes the item from the db
                   - if success, remove the node from MultipleItemsDisplay.jsx
-
-
 
 8. OutfitSubmitter.jsx
 ----------------------------------------------------------------------

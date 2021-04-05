@@ -12,6 +12,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import OurModal from './OurModal';
+// import '../stylesheets/style.css'; 
 
 Modal.setAppElement('#root');
 export const GlobalContext = React.createContext({}); // To pass state to children
@@ -55,7 +56,32 @@ function MainContainer(props) {
         Shoes
       </button>
       {category !== '' && (
-        <Modal isOpen={showModal}>
+        <Modal 
+          style={{
+              overlay: {
+              position: 'fixed',
+              top: 200,
+              left: 0,
+              right: 500,
+              bottom: 0,
+              backgroundColor: 'rgba(35, 255, 255, 0.75)'
+            },
+            content: {
+              position: 'absolute',
+              top: '40px',
+              left: '40px',
+              right: '40px',
+              bottom: '40px',
+              border: '1px solid #ccc',
+              background: 'white',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '4px',
+              outline: 'none',
+              padding: '20px'
+            }
+            }}
+          isOpen={showModal}>
           <button
             onClick={() => {
               setModal((currentState) =>
