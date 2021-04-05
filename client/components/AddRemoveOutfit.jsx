@@ -17,34 +17,28 @@
 //   - .then calls the MultipleItemsDisplay box passing in the returend URL , category name, item id, and user id
 
 import React, { useState, useEffect } from 'react';
+import Outfit from './Outfit';
 
 export const GlobalContext = React.createContext({}); // To pass state to children
-function AddItem(props) {
+function AddRemoveOutfit(props) {
+  const [outfitItems, setOutfitItems] = useState('');
 
-  const addItem = addUrl => {
-    console.log(props.category);
-    fetch('/wardrobe/addItem', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({url: addUrl, type : props.category, user_id : 4}),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+  if(outfitItems != '') {
+    return (
+      <div>
+        <button onClick={() => setOutfitItems(props.url)}>add to outfit</button>
+        <button onClick={() => setOutfitItems('')}>delete from outfit</button>
+        <Outfit url = {outfitItems}></Outfit>
+      </div>
+    )
   }
-  
+
   return (
     <div>
-      <input id="url-input" type="text" />
-      <button onClick={() => addItem(document.getElementById("url-input").value)}>add item</button>
+      <button onClick={() => setOutfitItems(props.url)}>add to outfit</button>
+      <Outfit url = {outfitItems}></Outfit>
     </div>
   )
 }
 
-export default AddItem;
+export default AddRemoveOutfit;

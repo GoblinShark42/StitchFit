@@ -4,7 +4,7 @@ const wardrobeController = require("../controllers/wardrobeController");
 
 // GET items
 router.get("/getItems", wardrobeController.getItems, (req, res) =>
-	res.status(200).json(res.locals.allItmes)
+	res.status(200).json(res.locals.allItems) // Spelling mistake here , it said allItms or something
 );
 
 // GET an item by type
