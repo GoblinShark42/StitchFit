@@ -15,8 +15,7 @@
 //   - If items exist, displays the ItemDisplay boxes (with pictures and buttons)
 //   - If no items were found, do nothing
 
-import React, {useState, useEffect} from 'react'
-
+import React, { useState, useEffect } from 'react'
 
 export const GlobalContext = React.createContext({}); // To pass state to children
 function MultipleItemsDisplay(props) {
@@ -24,13 +23,17 @@ function MultipleItemsDisplay(props) {
 
   let imgArray = []
 
-  for(let i = 0; i < props.urls.length; i++) {
-    imgArray.push(<img src ={props.urls[i]} ></img>)
+  for (let i = 0; i < props.urls.length; i++) {
+    imgArray.push(
+      <div>
+        <img src={props.urls[i]} width="120px" height="120px"></img>
+      </div>
+    )
   }
-  
+
   return (
     <div>
-    {imgArray}
+      {imgArray}
     </div>
   )
 }
