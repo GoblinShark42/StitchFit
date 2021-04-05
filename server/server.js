@@ -109,6 +109,7 @@ app.use((err, req, res, next) => {
     status: 500,
   };
   const errorObj = Object.assign({}, defaultErr, err);
+	console.log("ERROR TYPE: ", err)
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });

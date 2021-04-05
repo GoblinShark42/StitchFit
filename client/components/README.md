@@ -37,13 +37,17 @@ App
 2. MainContainer.jsx (displays category boxes)
     ---------------------------------------------------------------------------------
     Input: User id
-    Renders: Menu buttons 
-    Child Conponent: Menu.jsx <Menu category = 'tops' userId = 'asefjowef83r8'> 
+    Renders: CategoryDisplay buttons 
+    Child Conponent: Modal.jsx <CategoryDisplay category = 'tops' userId = 'asefjowef83r8'> 
                      * actual props should be variable names
     ---------------------------------------------------------------------------------
     - Displays four category boxes depending on the user id and category props (tops, bottoms, shoes, accessories)
+    - displaying Modal
+    - Listens to the click events
+    - When a click event happens, this component creates a Modal with the userId and category 
 
-      3. MenuDisplay.jsx
+
+      3. CategoryDisplay.jsx
           --------------------------------------------------------------------
           Input: category name (to display each menu and icon), user id
           Output/render: each category button

@@ -15,7 +15,7 @@ wardrobeController.getItems = (req, res, next) => {
 };
 
 // GET one wardrobe from clothing_item table
-// endpoint example: '/wardrobe/getItemstops'
+// endpoint example: '/wardrobe/getItems/tops'
 wardrobeController.getItemByType = (req, res, next) => {
 	const { type } = req.params;
 	const queryString = `SELECT * FROM clothing_item WHERE type='${type}'`;
