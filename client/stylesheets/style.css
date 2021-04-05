@@ -4,3 +4,34 @@ body {background:white}
   background-color: white;
   width:300px !important;
 }
+
+.outfit-container{
+  width:500px;
+  min-width:300px;
+  position:fixed;
+  right:0;
+}
+.outfit-item-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.outfit-items{
+  flex:1;
+  /* background-image: src(''); */
+  width: 200px;
+  max-height: 300px;
+}
+
+
+#mainContent {
+  display:flex;
+}
+
+#ourModalDiv{
+  flex:1;
+}
+
+#outfitContainerDiv{
+  flex:1;
+} 

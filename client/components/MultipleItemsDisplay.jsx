@@ -26,7 +26,7 @@ function MultipleItemsDisplay(props) {
 
   for (let i = 0; i < props.urls.length; i++) {
     imgArray.push(
-      <div>
+      <div key={i}>
         <img src={props.urls[i]} width="120px" height="120px"></img>
         <AddRemoveOutfit url={props.urls[i]}></AddRemoveOutfit>
       </div>
