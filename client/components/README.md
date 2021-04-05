@@ -4,7 +4,6 @@
 App
   |-- Main Container (--- state; instantiate 4 different Category boxes, each have a Modal)
         |
-        |
         |    
         |-- Category Display (boxes show up on screen)
         |   |
@@ -13,9 +12,13 @@ App
         |         |
         |         |-- MulipleItemsDisplay (instantiate x number of ItemDisplay) 
         |               |--ItemDisplay
-        |                     |--DeleteItem
+        |                     |--DeleteItem (not implemented yet)
         |
-        |-- OutfitSubmitter (listening to the state)
+        |-- OutfitCreator (listening to the state)
+             |-- DraftOutfit/DisplayOutfit
+             |-- OutfitSave Button (Post request to Outfits table)
+ 
+
 
 
 //******************************/
