@@ -24,21 +24,6 @@ const [showAccessory, setShowAccessory] = useState(false);
 // const [showBottoms, setShowBottoms] = useState(false); 
 // const [showShoes, setShowShoes] = useState(false); 
 
-// Modal.setAppElement('OurModal')
-
-
-  // if(setCategory === 'accessory') {
-  //   menuType =  `WE ARE NOW LOOKING AT ACCESSORIES`;
-  // } 
-  // if(setCategory === 'tops') {
-  //   menuType = `WE ARE NOW LOOKING AT TOPS ? YES, ${setCategory}`;
-  // }
-  // if(setCategory === 'bottoms') {
-  //   menuType =  `WE ARE NOW LOOKING AT BOTTOMS ? YES, ${setCategory}`;
-  // } 
-  // if(setCategory === 'shoes') {
-  //   menuType = `WE ARE NOW LOOKING AT SHOES ? YES, ${setCategory}`;
-  // }  
 
 
   return(     

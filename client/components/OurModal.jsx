@@ -7,36 +7,49 @@ import React, {useState, useEffect} from 'react'
 import { render } from 'react-dom';
 //import Modal from 'react-modal';
 import ReactDOM from 'react-dom';
+import MultipleItemsDisplay from './MultipleItemsDisplay'
 
 //Modal.setAppElement('#root')
 
 
 export const GlobalContext = React.createContext({}); // To pass state to children
 function OurModal(props){
-  let myData = [];
+  const [myAccessories, setAccessories] = useState(''); 
+  const [myUrls, setUrls] = useState(''); 
 
   const getItem = () => {
-    fetch('/wardrobe/addItem', {
-      method: 'POST',
-      headers:  {'Content-Type': 'application/json'},
-      body: JSON.stringify("{ url: 'http://asefojaisef', type:'tops', user_id:'aeiou' }")
-    })
-      .then(response => console.log(response.text()))
+    fetch('/wardrobe/getItems/shoes')
+      .then(response => response.json())
       .then(data => {
-        console.log(JSON.parse(data));
+        setAccessories((data));
+        //console.log(data);
         // this.setState({urls : data});
         // console.log(this.state.urls);
       })
       .catch(error => console.log(error));
   }
+  /*<div>{myAccessories.map((accessory) =>{
+    <div>{accessory.url}</div>
+  })}</div>*/
 
-
+  const parseUrls = () => {
+    let temp = []
+    for(let i = 0; i < myAccessories.length; i++) {
+      temp.push(myAccessories[i].url);
+    }
+    console.log(temp);
+    setUrls(temp);
+    console.log(myUrls[0]);
+    return temp;
+  }
+  //{console.log(myAccessories.map((accessory) => accessory.url))}
   
   return(
     <div>
       <button onClick={getItem} >GET ALL THE ITEMS!!!</button>
-      {myData}
-      </div>
+      <button onClick={() => parseUrls(myAccessories)} >GET URLS!!!</button>
+      <MultipleItemsDisplay urls = {myUrls}></MultipleItemsDisplay>
+    </div>
   )
 }
 

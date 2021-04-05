@@ -1,18 +1,18 @@
-const path = require("path");
-const express = require("express");
+const path = require('path');
+const express = require('express');
 const app = express();
 
 // cookie-session for creating sessions stored in cookies
-const cookieSession = require("cookie-session");
+const cookieSession = require('cookie-session');
 // key for cookie stored here. backend team should try placing other necessary keys in this file if possible
-const keys = require("../keys/keys");
+const keys = require('../keys/keys');
 
 // for bcrypt testing purposes
 const SALT_WORK_FACTOR = 5;
-const bcrypt = require("bcryptjs");
-const BCRYPT_TEST_ID = "Senor Goobly";
-const wardrobeRouter = require("./routes/wardrobeRoute");
-const outfitsRouter = require("./routes/outfitsRoute");
+const bcrypt = require('bcryptjs');
+const BCRYPT_TEST_ID = 'Senor Goobly';
+const wardrobeRouter = require('./routes/wardrobeRoute');
+const outfitsRouter = require('./routes/outfitsRoute');
 
 const PORT = 3000;
 
@@ -25,17 +25,17 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * handle requests for static files
  */
-app.use(express.static(path.resolve(__dirname, "../client")));
+app.use(express.static(path.resolve(__dirname, '../client')));
 
 /**
  * This will create a cookie for a client when they get onto our server
  */
 app.use(
-	cookieSession({
-		name: "goobly-cookie",
-		maxAge: 1 * 60 * 60 * 1000, // maxAge is in milliseconds, so 1 * 60 min * 60 sec * 1000 = 1 hr maxAge
-		keys: [keys.COOKIE_KEY],
-	})
+  cookieSession({
+    name: 'goobly-cookie',
+    maxAge: 1 * 60 * 60 * 1000, // maxAge is in milliseconds, so 1 * 60 min * 60 sec * 1000 = 1 hr maxAge
+    keys: [keys.COOKIE_KEY],
+  })
 );
 
 /**
@@ -44,83 +44,81 @@ app.use(
  * try incorporating bcrypt in the model file and have the hashed user id column contain the value
  * returned by bcrypt.hash();
  */
-app.get("/login", async (req, res) => {
-	// not the async before (req, res) since bcrpyt is async. this also allows us to use await before bcrypt to get the hash before proceeding.
-	// first get user id from the database, this will replace the BCRYPT_TEST_ID value
+app.get('/login', async (req, res) => {
+  // not the async before (req, res) since bcrpyt is async. this also allows us to use await before bcrypt to get the hash before proceeding.
+  // first get user id from the database, this will replace the BCRYPT_TEST_ID value
 
-	// hash the user id
-	let hashed = await bcrypt.hash(BCRYPT_TEST_ID, SALT_WORK_FACTOR);
+  // hash the user id
+  let hashed = await bcrypt.hash(BCRYPT_TEST_ID, SALT_WORK_FACTOR);
 
-	console.log("LOGGED IN. HASHED USER ID HERE: ", hashed);
-	// then set the cookie value to the hashed value
-	req.session.user = hashed;
-	res.status(200).json("Cookie made");
+  console.log('LOGGED IN. HASHED USER ID HERE: ', hashed);
+  // then set the cookie value to the hashed value
+  req.session.user = hashed;
+  res.status(200).json('Cookie made');
 });
 
 /** This manually deletes the session and therefore the cookie
  *
  */
-app.get("/logout", (req, res) => {
-	// deletes the session for the user and therefore the cookie by setting req.session to null
-	req.session = null;
-	res.status(200).json("Cookie deleted");
+app.get('/logout', (req, res) => {
+  // deletes the session for the user and therefore the cookie by setting req.session to null
+  req.session = null;
+  res.status(200).json('Cookie deleted');
 });
 
 /**
  * This should obtain the hashed value of the cookie which will match the hashed value in the User table for the hashed user id column
  * */
-app.get("/getcookie", (req, res) => {
-	// grab the cookie value from the client. it arrives in an object with key value pair { user : hashed_value}
-	res.status(200).send(req.session);
+app.get('/getcookie', (req, res) => {
+  // grab the cookie value from the client. it arrives in an object with key value pair { user : hashed_value}
+  res.status(200).send(req.session);
 });
 
 /**
  * Compare the cookies value (this should be the hashed user id) with the actual user id
  */
-app.get("/comparecookie", async (req, res) => {
-	// obtains the hashed user id from the client's cookie. It will be stored in req.session.user
-	let hashedId = req.session.user;
+app.get('/comparecookie', async (req, res) => {
+  // obtains the hashed user id from the client's cookie. It will be stored in req.session.user
+  let hashedId = req.session.user;
 
-	// obtain a boolean for whether the user id and hashed user id match
-	const valid = await bcrypt.compare(BCRYPT_TEST_ID, hashedId);
+  // obtain a boolean for whether the user id and hashed user id match
+  const valid = await bcrypt.compare(BCRYPT_TEST_ID, hashedId);
 
-	// match not found, the user is not validated
-	if (!valid) {
-		res.send("not valid");
-	}
+  // match not found, the user is not validated
+  if (!valid) {
+    res.send('not valid');
+  }
 
-	// match found, the user is validated
-	res.send("valid");
+  // match found, the user is validated
+  res.send('valid');
 });
 
 /**
  * handle routes
  */
-app.use("/wardrobe", wardrobeRouter);
-app.use("/outfits", outfitsRouter);
-
-app.use("/", (req, res) => res.status(200).send("hello"));
-
+app.use('/wardrobe', wardrobeRouter);
+app.use('/outfits', outfitsRouter);
 
 //catch-all error handler for unknown routes
-app.use("*", (req, res) => res.status(404).send("not working"));
+app.use('*', (req, res) => res.status(404).send('not working'));
 
 //global error handler
 app.use((err, req, res, next) => {
-	const defaultErr = {
-		log: "Express error handler caught unknown middleware error",
-		status: 500,
-	};
-	const errorObj = Object.assign({}, defaultErr, err);
-	console.log(errorObj.log);
-	return res.status(errorObj.status).json(errorObj.message);
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+	console.log("ERROR TYPE: ", err)
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 /**
  * start server
  */
 app.listen(PORT, () => {
-	console.log(`Server listening on port: ${PORT}...`);
+  console.log(`Server listening on port: ${PORT}...`);
 });
 
 module.exports = app;
