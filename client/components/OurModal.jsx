@@ -5,7 +5,6 @@
 
 import React, {useState, useEffect} from 'react'
 import { render } from 'react-dom';
-//import Modal from 'react-modal';
 import ReactDOM from 'react-dom';
 import MultipleItemsDisplay from './MultipleItemsDisplay'
 
@@ -14,32 +13,30 @@ import MultipleItemsDisplay from './MultipleItemsDisplay'
 
 export const GlobalContext = React.createContext({}); // To pass state to children
 function OurModal(props){
-  const [myAccessories, setAccessories] = useState(''); 
-  const [myUrls, setUrls] = useState(''); 
+  const [myItems, setItems] = useState(''); 
+  const [pictureUrls, setUrls] = useState(''); 
 
+  console.log(props.category);
   const getItem = () => {
-    fetch('/wardrobe/getItems/shoes')
+    fetch(`/wardrobe/getItems/${props.category}`)
       .then(response => response.json())
       .then(data => {
-        setAccessories((data));
-        //console.log(data);
-        // this.setState({urls : data});
+        setItems((data));
+        console.log(data);
+        setUrls({urls : data});
+        console.log(pictureUrls);
         // console.log(this.state.urls);
       })
       .catch(error => console.log(error));
   }
-  /*<div>{myAccessories.map((accessory) =>{
-    <div>{accessory.url}</div>
-  })}</div>*/
+
 
   const parseUrls = () => {
     let temp = []
-    for(let i = 0; i < myAccessories.length; i++) {
-      temp.push(myAccessories[i].url);
+    for(let i = 0; i < myItems.length; i++) {
+      temp.push(myItems[i].url);
     }
-    console.log(temp);
     setUrls(temp);
-    console.log(myUrls[0]);
     return temp;
   }
   //{console.log(myAccessories.map((accessory) => accessory.url))}
@@ -47,8 +44,8 @@ function OurModal(props){
   return(
     <div>
       <button onClick={getItem} >GET ALL THE ITEMS!!!</button>
-      <button onClick={() => parseUrls(myAccessories)} >GET URLS!!!</button>
-      <MultipleItemsDisplay urls = {myUrls}></MultipleItemsDisplay>
+      <button onClick={() => parseUrls(myItems)} >GET URLS!!!</button>
+      <MultipleItemsDisplay urls = {pictureUrls}></MultipleItemsDisplay>
     </div>
   )
 }

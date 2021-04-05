@@ -22,10 +22,15 @@ export const GlobalContext = React.createContext({}); // To pass state to childr
 function MultipleItemsDisplay(props) {
   const [urls, handleUrls] = useState(props.urls); // State update
 
+  let imgArray = []
 
+  for(let i = 0; i < props.urls.length; i++) {
+    imgArray.push(<img src ={props.urls[i]} ></img>)
+  }
+  
   return (
     <div>
-    <img src= {props.urls[2]}></img>
+    {imgArray}
     </div>
   )
 }
