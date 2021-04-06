@@ -73,7 +73,8 @@ app.use('/login', loginRouter);
 
 app.use('/logout', (req, res) => {
   req.session = null;
-  res.status(200).json('Cookie deleted');
+  //res.status(200).json('Cookie deleted');
+  res.redirect('/');
 })
 //app.use('/logout', logoutRouter);
 

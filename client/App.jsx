@@ -26,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Goblin Shark(coming from App.jsx)</h1>
+        <h1>Gooblify</h1>
         <p>Welcome {this.state.userName}</p>
         <MainContainer userId={this.state.userId} userName={this.state.userName} />
       </div>
