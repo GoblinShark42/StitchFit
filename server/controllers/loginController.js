@@ -20,7 +20,7 @@ loginController.checkUser = (req, res, next) => {
       if (res.locals.user.length === 0) {
         next("INVALID") // user not found, need to do more things here
       }
-      
+
       for (let i = 0; i < res.locals.user.length; i++) {
         id = res.locals.user[i].id;
         req.session.user = await bcrypt.hash(`${id}`, SALT_WORK_FACTOR);
@@ -36,7 +36,11 @@ loginController.checkUser = (req, res, next) => {
     })
     // if there's an error, call global error handler
     .catch((err) => next(err));
-
 };
+
+loginController.logout = (req, res, next) => {
+  req.session = null;
+  res.status(200).json("Cookie session deleted, you're logged out!");
+}
 
 module.exports = loginController;

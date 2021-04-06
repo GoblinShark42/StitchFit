@@ -66,7 +66,7 @@ userController.deleteUser = (req, res, next) => {
 		// if there's an error, call global error handler
 		.catch((err) => next(err));
 };
-
+//   "user_hash_id": "$2a$05$gP3fIv0Q8qgj4F7PglMzdOf047YQmODzskxqCysf764PM60n4.Nfi"
 // UPDATE user_hash_id
 userController.updateUser = (req, res, next) => {
 	const id = parseInt(req.params.id);
