@@ -1,15 +1,15 @@
 // 6. MultipleItemsDisplay.jsx
 // ----------------------------------------------------------------------
 // Input: category name, user id
-// Renders: Multiple Items Display box 
+// Renders: Multiple Items Display box
 //                Previously saved items (if any)
 // Child Compoents: ItesDisplay.jsx
 //                   <ItemDisplay imgUrl = 'http://abc.com/xxx.jpg'
-//                                category ='tops' 
-//                                userId = 'asefjowef83r8', 
+//                                category ='tops'
+//                                userId = 'asefjowef83r8',
 //                                itemId = ''>
 // ----------------------------------------------------------------------
-// - Displays Category name 
+// - Displays Category name
 // - Invokes GET request to DB with category name and userId
 //   -DB：GET /wardrobe/accessories
 //   - If items exist, displays the ItemDisplay boxes (with pictures and buttons)
@@ -25,7 +25,7 @@ function MultipleItemsDisplay(props) {
   const [urls, handleUrls] = useState(props.urls);
   const [ids, handleIDs] = useState(props.ids);
 
-  let imgArray = []
+  let imgArray = [];
 
   for (let i = 0; i < props.urls.length; i++) {
     imgArray.push(
@@ -37,7 +37,7 @@ function MultipleItemsDisplay(props) {
         draft = {props.draft} changeDraft = {props.changeDraft}
         ></AddRemoveOutfit>
       </div>
-    )
+    );
   }
 
   return (
@@ -47,6 +47,5 @@ function MultipleItemsDisplay(props) {
     </div>
   )
 }
-
 
 export default MultipleItemsDisplay;

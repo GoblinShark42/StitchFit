@@ -6,7 +6,7 @@ function CategoryButton (props){
   return (
     <button onClick={() => {
       props.func.setCategory(props.category); 
-      props.func.getUrls(props.category);
+      // props.func.getUrls(props.category);
       props.func.setModal(props.func.flipModal);
     }}>{props.category}</button>
   )
