@@ -14,6 +14,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import OurModal from './OurModal';
 import OutfitContainer from './OutfitContainer';
+import CategoryButton from './CategoryButton';
 // import '../stylesheets/style.css'; 
 
 Modal.setAppElement('#root');
@@ -48,62 +49,46 @@ const customStyle = {
 function MainContainer(props) {
   const [category, setCategory] = useState(''); // State update
   const [showModal, setModal] = useState(false);
+  // const [myItems, setItems] = useState(''); 
+  // const [pictureUrls, setUrls] = useState(''); 
+  // const [itemIDs, setIDs] = useState(''); 
 
-  // Temporary placement. Will merge with Dieu's code
   const [draftOutfit, updateDraftOutfit] = useState({
     user_id: 1, // temporary default user_id
-    // accessory_id: '',
-    // accessory_url: '',
-    // top_id: '',
-    // top_url: '',
-    // bottom_id: '',
-    // bottom_url: '',
-    // shoes_id: '',
-    // shoes_url: ''
-    accessory_id: '32',
-    accessory_url: 'https://cdn.cnn.com/cnnnext/dam/assets/191211190435-j-crew-ribbed-scarf-super-169.jpg',
-    top_id: 43,
-    top_url: 'https://n.nordstrommedia.com/id/sr3/e23fdafa-d785-4ea7-8873-ab36529cb8f0.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196',
-    bottom_id: 45,
-    bottom_url: 'https://n.nordstrommedia.com/id/sr3/e8c7f6ec-2db2-469b-b3e7-059b73ca323d.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196',
-    shoes_id: 47,
-    shoes_url: 'https://n.nordstrommedia.com/id/sr3/11171ed6-22e3-4c69-8422-591b40889df7.jpeg?crop=pad&pad_color=FFF&format=jpeg&trim=color&trimcolor=FFF&w=780&h=838'
+    accessory_id: '',
+    accessory_url: '',
+    top_id: '',
+    top_url: '',
+    bottom_id: '',
+    bottom_url: '',
+    shoes_id: '',
+    shoes_url: ''
   });
+  
+  // helper function to help modularize state flipping
+  const flipModal = currentState => (currentState === false) ? true : false;
+  
+  // create categoryArray to loop through and instantiate several buttons in return
+  const categoryButtons = []
+  const categoryArray = ['accessories', 'tops', 'bottoms', 'shoes']
+  // methods holder
+  const categoryButtonMethods = {      
+    setCategory : setCategory,
+    setModal : setModal,
+    flipModal : flipModal,
+  }
+
+  for (let i = 0; i< categoryArray.length; i += 1){
+    // drill into CategoryButton the methods that CategoryButton can use
+    categoryButtons.push(<CategoryButton key = {i} category = {categoryArray[i]} func = {categoryButtonMethods}/>)
+  }
+  console.log(draftOutfit);
+
 
   return (
     <div id="myElement">
-      <button
-        onClick={() => {
-          setCategory('accessories');
-          setModal((currentState) => !currentState); // same as (currentState === false ? true : false)
-        }}
-      >
-        Accessory
-      </button>
-      <button
-        onClick={() => {
-          setCategory('tops');
-          setModal((currentState) => !currentState);
-        }}
-      >
-        Tops
-      </button>
-      <button
-        onClick={() => {
-          setCategory('bottoms');
-          setModal((currentState) => !currentState);
-        }}
-      >
-        Bottoms
-      </button>
-      <button
-        onClick={() => {
-          setCategory('shoes');
-          setModal((currentState) => !currentState);
-        }}
-      >
-        Shoes
-      </button>
+      {/* instantiate several buttons */}
+      {categoryButtons}
       <div id="mainContent">
         <div id="ourModalDiv">
           {category !== '' && (
@@ -119,7 +104,9 @@ function MainContainer(props) {
               >
                 Close
               </button>
-              <OurModal category={category} showModal={showModal} />
+              <OurModal userId={props.userId} category={category} showModal={showModal} 
+              // after passing down all urls, also pass types down, currentItem and method to alter currentItem
+              changeDraft = {updateDraftOutfit} draft = {draftOutfit}/>
             </Modal>
           )}
         </div>
