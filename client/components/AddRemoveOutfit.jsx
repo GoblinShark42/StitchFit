@@ -17,7 +17,7 @@
 //   - .then calls the MultipleItemsDisplay box passing in the returend URL , category name, item id, and user id
 
 import React, { useState, useEffect } from 'react';
-import Outfit from './Outfit';
+// import OutfitContainer from './OutfitContainer';
 
 export const GlobalContext = React.createContext({}); // To pass state to children
 function AddRemoveOutfit(props) {
@@ -39,7 +39,7 @@ function AddRemoveOutfit(props) {
         back in MainComponent. Depending on the category, it will alter the right key value pairs */}
         <button onClick={change}>add to outfit</button>
         <button onClick={() => setOutfitItems('')}>delete from outfit</button>
-        <Outfit url={outfitItems}></Outfit>
+        {/* <OutfitContainer url = {outfitItems}></OutfitContainer> */}
       </div>
     )
   }
@@ -47,7 +47,7 @@ function AddRemoveOutfit(props) {
   return (
     <div>
       <button onClick={() => setOutfitItems(props.url)}>add to outfit</button>
-      <Outfit url={outfitItems}></Outfit>
+      {/* <OutfitContainer url = {outfitItems}></OutfitContainer> */}
     </div>
   )
 }

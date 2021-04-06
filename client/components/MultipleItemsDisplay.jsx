@@ -29,7 +29,7 @@ function MultipleItemsDisplay(props) {
 
   for (let i = 0; i < props.urls.length; i++) {
     imgArray.push(
-      <div>
+      <div key={i}>
         <img src={props.urls[i]} width="120px" height="120px"></img>
         {/* instantiate AddRemoveOutfit button. Need to pass the url,
          the item_id, category and the method to alter the parent state*/}
