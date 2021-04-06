@@ -12,10 +12,38 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import OurModal from './OurModal';
+
+// TESTING LOGIN HERE
+import SignIn from '../SignIn';
 // import '../stylesheets/style.css'; 
 
 Modal.setAppElement('#root');
 export const GlobalContext = React.createContext({}); // To pass state to children
+const modalStyle = {
+  overlay: {
+    position: 'fixed',
+    top: 200,
+    left: 0,
+    right: 500,
+    bottom: 0,
+    backgroundColor: 'rgba(35, 255, 255, 0.75)'
+  },
+  content: {
+    position: 'absolute',
+    top: '40px',
+    left: '40px',
+    right: '40px',
+    bottom: '40px',
+    border: '1px solid #ccc',
+    background: 'white',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '4px',
+    outline: 'none',
+    padding: '20px'
+  }
+}
+
 
 function MainContainer(props) {
   const [category, setCategory] = useState(''); // State update
@@ -23,6 +51,7 @@ function MainContainer(props) {
 
   return (
     <div id="myElement">
+      <SignIn></SignIn>
       <button
         onClick={() => {
           setCategory('accessories');
@@ -56,31 +85,8 @@ function MainContainer(props) {
         Shoes
       </button>
       {category !== '' && (
-        <Modal 
-          style={{
-              overlay: {
-              position: 'fixed',
-              top: 200,
-              left: 0,
-              right: 500,
-              bottom: 0,
-              backgroundColor: 'rgba(35, 255, 255, 0.75)'
-            },
-            content: {
-              position: 'absolute',
-              top: '40px',
-              left: '40px',
-              right: '40px',
-              bottom: '40px',
-              border: '1px solid #ccc',
-              background: 'white',
-              overflow: 'auto',
-              WebkitOverflowScrolling: 'touch',
-              borderRadius: '4px',
-              outline: 'none',
-              padding: '20px'
-            }
-            }}
+        <Modal
+          style={modalStyle}
           isOpen={showModal}>
           <button
             onClick={() => {

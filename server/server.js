@@ -8,11 +8,14 @@ const cookieSession = require('cookie-session');
 const keys = require('../keys/keys');
 
 // for bcrypt testing purposes
+/*
 const SALT_WORK_FACTOR = 5;
 const bcrypt = require('bcryptjs');
-const BCRYPT_TEST_ID = 'Senor Goobly';
+const BCRYPT_TEST_ID = 'Senor Goobly';*/
 const wardrobeRouter = require('./routes/wardrobeRoute');
 const outfitsRouter = require('./routes/outfitsRoute');
+const userRouter = require('./routes/userRoute');
+const loginRouter = require('./routes/loginRoute');
 
 const PORT = 3000;
 
@@ -44,7 +47,10 @@ app.use(
  * try incorporating bcrypt in the model file and have the hashed user id column contain the value
  * returned by bcrypt.hash();
  */
-app.get('/login', async (req, res) => {
+
+
+
+/*app.get('/login', loginRouter, async (req, res) => {
   // not the async before (req, res) since bcrpyt is async. this also allows us to use await before bcrypt to get the hash before proceeding.
   // first get user id from the database, this will replace the BCRYPT_TEST_ID value
 
@@ -55,7 +61,9 @@ app.get('/login', async (req, res) => {
   // then set the cookie value to the hashed value
   req.session.user = hashed;
   res.status(200).json('Cookie made');
-});
+});*/
+
+app.use('/login', loginRouter);
 
 /** This manually deletes the session and therefore the cookie
  *
@@ -98,6 +106,7 @@ app.get('/comparecookie', async (req, res) => {
  */
 app.use('/wardrobe', wardrobeRouter);
 app.use('/outfits', outfitsRouter);
+app.use('/users', userRouter)
 
 //catch-all error handler for unknown routes
 app.use('*', (req, res) => res.status(404).send('not working'));

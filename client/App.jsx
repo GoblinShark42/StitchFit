@@ -12,7 +12,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import MainContainer from "./components/MainContainer";
 
-
 class App extends Component {
   constructor(props) {
     super();

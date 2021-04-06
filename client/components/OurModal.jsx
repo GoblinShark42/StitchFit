@@ -19,7 +19,7 @@ function OurModal(props) {
       .then((response) => response.json())
       .then((data) => {
         setItems(data);
-        setUrls({ urls: data });
+
       })
       .then(() => {
         let temp = [];
