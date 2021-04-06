@@ -6,6 +6,13 @@ const BCRYPT_TEST_ID = 'Senor Goobly';
 
 const loginController = {};
 
+/**
+ * This creates a session upon logging in by setting req.session.user's value.
+ * The value should be the hashed value of the user id and to do this, we bcrypt it. The backend team should
+ * try incorporating bcrypt in the model file and have the hashed user id column contain the value
+ * returned by bcrypt.hash();
+ */
+
 // CHECK if user exists
 loginController.checkUser = (req, res, next) => {
   const { username, password } = req.params;
