@@ -1,4 +1,7 @@
-body {background:white}
+body {background:white;
+  background-image: url("../goobly.jpg");
+  padding: 50px;
+}
 
 .ReactModalPortal {
   background-color: white;
@@ -6,7 +9,7 @@ body {background:white}
 }
 
 .outfit-container{
-  background-image: url("./goobly.jpg");
+  background-image: url("../goobly.jpg");
   width:500px;
   min-width:300px;
   position:fixed;
@@ -36,3 +39,17 @@ body {background:white}
 #outfitContainerDiv{
   flex:1;
 } 
+
+p {
+  font-size: x-large;
+}
+
+button {
+  font-size: 30px;
+}
+
+h1 {
+  color: white;
+  font-size: 40px;
+  margin-top: 30px;
+}

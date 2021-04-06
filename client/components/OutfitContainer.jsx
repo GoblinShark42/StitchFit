@@ -33,7 +33,7 @@ function OutfitContainer(props) {
   }
     return (
       <div id='outfit-container'>
-        <h1>Outfit Container</h1>
+        <h1>Outfit</h1>
         <div id="outfit-item-container">
           {/* Render each item picture */}
           <div className = 'outfit-image-container'>
