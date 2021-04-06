@@ -6,6 +6,7 @@ body {background:white}
 }
 
 .outfit-container{
+  background-image: url("./goobly.jpg");
   width:500px;
   min-width:300px;
   position:fixed;
