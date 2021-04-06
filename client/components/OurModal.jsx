@@ -15,28 +15,21 @@ function OurModal(props){
   const [myItems, setItems] = useState(''); 
   const [pictureUrls, setUrls] = useState(''); 
 
- /* useEffect(() => {
-    console.log("HERE");
-    fetch(`/wardrobe/getItems/${props.category}`)
-      .then(response => response.json())
-      .then(data => {
-        setItems((data));
-        setUrls({urls : data});
-      })
-      .then(() => {
-        let temp = []
-        for(let i = 0; i < myItems.length; i++) {
-          temp.push(myItems[i].url);
-        }
-        setUrls(temp);
-      })
-      .catch(error => console.log(error));
-  }, []) */
-  
+
   return(
     <div>
+
+      {/* AddItem instance is a button that will send POST request to the backend server to add item for the user */}
       <AddItem category = {props.category}></AddItem>
-      <MultipleItemsDisplay urls = {props.urls}></MultipleItemsDisplay>
+      {/* MultipleItemsDisplay will display all the items belong to the user within the right category.
+      For example: All the tops user owns */}
+      <MultipleItemsDisplay 
+      urls = {props.urls}   
+      ids = {props.ids}  
+      category = {props.category} 
+      draft = {props.draft}
+      changeDraft = {props.changeDraft}
+      ></MultipleItemsDisplay>
     </div>
   )
 }
