@@ -17,18 +17,29 @@
 //   - .then calls the MultipleItemsDisplay box passing in the returend URL , category name, item id, and user id
 
 import React, { useState, useEffect } from 'react';
-import Outfit from './Outfit';
+// import OutfitContainer from './OutfitContainer';
 
 export const GlobalContext = React.createContext({}); // To pass state to children
 function AddRemoveOutfit(props) {
   const [outfitItems, setOutfitItems] = useState('');
+  const change = () => {
+    // if the category is top: use passed in id, and passed in url to update url
+    console.log('the category is ', props.category);
+    if (props.category === 'accessories') { props.changeDraft({ ...props.draft, accessory_id: props.id, accessory_url: props.url }); }
+    else if (props.category === 'tops') { props.changeDraft({ ...props.draft, top_id: props.id, top_url: props.url }); }
+    else if (props.category === 'bottoms') { props.changeDraft({ ...props.draft, bottom_id: props.id, bottom_url: props.url }); }
+    else if (props.category === 'shoes') { props.changeDraft({ ...props.draft, shoes_id: props.id, shoes_url: props.url }); }
+  }
 
-  if(outfitItems != '') {
+  if (outfitItems != '') {
     return (
       <div>
-        <button onClick={() => setOutfitItems(props.url)}>add to outfit</button>
+        {/* <button onClick={changeTopID}> update DraftOutfit ID</button> */}
+        {/* clicking on "add to outfit" button would alter the draftOutfit state 
+        back in MainComponent. Depending on the category, it will alter the right key value pairs */}
+        <button onClick={change}>add to outfit</button>
         <button onClick={() => setOutfitItems('')}>delete from outfit</button>
-        <Outfit url = {outfitItems}></Outfit>
+        {/* <OutfitContainer url = {outfitItems}></OutfitContainer> */}
       </div>
     )
   }
@@ -36,7 +47,7 @@ function AddRemoveOutfit(props) {
   return (
     <div>
       <button onClick={() => setOutfitItems(props.url)}>add to outfit</button>
-      <Outfit url = {outfitItems}></Outfit>
+      {/* <OutfitContainer url = {outfitItems}></OutfitContainer> */}
     </div>
   )
 }
