@@ -6,23 +6,10 @@ const BCRYPT_TEST_ID = 'Senor Goobly';
 
 const loginController = {};
 
-
-// CREATE TABLE users (
-//   id INT GENERATED ALWAYS AS IDENTITY,
-//   firstname VARCHAR,
-//   lastname VARCHAR,
-//   username VARCHAR,
-//   password VARCHAR,
-//   zipcode INT,
-//   user_hash_id INT
-// );
-
 // CHECK if user exists
 loginController.checkUser = (req, res, next) => {
   const { username, password } = req.params;
   let id;
-  //"username": "DaGoobliness",
-  //"password": "wouldntyouliketoknow"
   const queryString = `SELECT * FROM users WHERE username='${username}' and password='${password}'`;
 
   db.query(queryString)
@@ -33,6 +20,7 @@ loginController.checkUser = (req, res, next) => {
       if (res.locals.user.length === 0) {
         next("INVALID") // user not found, need to do more things here
       }
+      
       for (let i = 0; i < res.locals.user.length; i++) {
         id = res.locals.user[i].id;
         req.session.user = await bcrypt.hash(`${id}`, SALT_WORK_FACTOR);
@@ -52,11 +40,3 @@ loginController.checkUser = (req, res, next) => {
 };
 
 module.exports = loginController;
-
-/**
- *   let hashed = await bcrypt.hash(BCRYPT_TEST_ID, SALT_WORK_FACTOR);
-
-  console.log('LOGGED IN. HASHED USER ID HERE: ', hashed);
-  // then set the cookie value to the hashed value
-  req.session.user = hashed;
- */
